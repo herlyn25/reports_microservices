@@ -5,16 +5,21 @@ spring:
     name: "reportsCrediya"
   devtools:
     add-properties: false
+    restart:
+      enabled: false
+    livereload:
+      enabled: false
   h2:
     console:
       enabled: true
       path: "/h2"
   profiles:
     include: null
+    active: "local"
 entrypoint:
   sqs:
     region: "${AWS_REGION}"
-    endpoint: "${AWS_ENDPOINT}"
+    endpoint: "${AWS_ENDPOINT_SQS}"
     queueUrl: "${AWS_QUEUE_URL}"
     waitTimeSeconds: 20
     maxNumberOfMessages: 10
@@ -23,7 +28,20 @@ entrypoint:
     credentials:
       access-key: "${AWS_ACCESS_KEY_ID}"
       secret-key: "${AWS_SECRET_ACCESS_KEY}"
-
 jwt:
   secret-key: "${JWT_SECRET_KEY:$mySecretKeyForJWT2024VeryLongAndSecureKey123456789}"
   expiration: 3600000
+aws:
+  dynamodb:
+    endpoint: "${AWS_ENDPOINT}"
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,prometheus"
+  endpoint:
+    health:
+      probes:
+        enabled: true
+cors:
+  allowed-origins: "http://localhost:4200,http://localhost:8082"

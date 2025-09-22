@@ -1,6 +1,9 @@
 apply plugin: 'org.springframework.boot'
 
 dependencies {
+	implementation project(':reactive-web')
+	implementation 'org.reactivecommons.utils:object-mapper:0.1.0'
+	implementation project(':dynamo-db')
 	implementation project(':metrics')
 	implementation 'software.amazon.awssdk:sts'
 	implementation project(':sqs-listener')
@@ -14,7 +17,6 @@ dependencies {
     implementation 'io.micrometer:micrometer-core'
 
     // Runtime
-    runtimeOnly('org.springframework.boot:spring-boot-devtools')
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 

@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 public class Reports {
-    private Integer elements;
-    private BigDecimal amount;
+    private String idKey;
+    private Integer countApps;
+    private BigDecimal amountAcum;
 }
