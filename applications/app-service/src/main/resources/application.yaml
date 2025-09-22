@@ -1,5 +1,6 @@
 server:
   port: 8082
+  shutdown: graceful
 spring:
   application:
     name: "reportsCrediya"
@@ -16,6 +17,8 @@ spring:
   profiles:
     include: null
     active: "local"
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
 entrypoint:
   sqs:
     region: "${AWS_REGION}"
