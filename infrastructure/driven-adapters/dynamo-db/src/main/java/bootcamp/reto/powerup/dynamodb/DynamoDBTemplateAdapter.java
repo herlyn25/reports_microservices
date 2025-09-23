@@ -1,5 +1,7 @@
 package bootcamp.reto.powerup.dynamodb;
 
+import bootcamp.reto.powerup.dynamodb.exceptions.ConstantsException;
+import bootcamp.reto.powerup.dynamodb.exceptions.NoSourceResourceException;
 import bootcamp.reto.powerup.dynamodb.helper.TemplateAdapterOperations;
 import bootcamp.reto.powerup.model.reports.Reports;
 import bootcamp.reto.powerup.model.reports.gateways.ReportsRepository;
@@ -42,7 +44,7 @@ public class DynamoDBTemplateAdapter extends TemplateAdapterOperations<Reports, 
     @Override
     public Mono<Reports> findById(String id) {
         return super.getById(id)
-                .switchIfEmpty(Mono.error(new Throwable(id+" no existe en BD")));
+                .switchIfEmpty(Mono.error(new NoSourceResourceException(ConstantsException.NO_FOUND_RESOURCE)));
     }
 
     @Override

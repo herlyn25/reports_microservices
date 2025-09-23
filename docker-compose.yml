@@ -1,0 +1,23 @@
+services:
+  reports_crediya:
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: deployment/Dockerfile
+    container_name: reports_container
+    environment:
+      - AWS_REGION=${AWS_REGION}
+      - AWS_ENDPOINT_SQS=${AWS_ENDPOINT_SQS}
+      - AWS_QUEUE_URL=${AWS_QUEUE_URL}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_ENDPOINT=${AWS_ENDPOINT}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+    ports:
+    - "8082:8082"
+    networks:
+      - crediya-network
+networks:
+  crediya-network:
+    driver: bridge
