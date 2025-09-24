@@ -58,9 +58,10 @@ public class SecurityConfig {
                 .authorizeExchange(ex-> ex
                         .pathMatchers(
                                 "/v3/api-docs/**",
-                                "/swagger-ui/**")
+                                "/swagger-ui/**",
+                                "/health")
                         .permitAll()
-                        .pathMatchers(HttpMethod.GET,"/api/v1/reports").hasRole("ADMIN")
+                        .pathMatchers(HttpMethod.GET,"/api/v1/reports/{id_key}").hasRole("ADMIN")
                         .anyExchange().authenticated())
                 .oauth2ResourceServer(oauth-> oauth
                         .jwt(jwt->jwt.jwtDecoder(decoder)

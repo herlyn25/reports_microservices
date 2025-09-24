@@ -62,9 +62,31 @@ public class ReportsRouter {
                                     @ApiResponse(responseCode = "403", description = "No autorizado para recurso aun con token")
                             }
                     )
+            ),
+            @RouterOperation(
+                    path = "/health",
+                    method = RequestMethod.GET,
+                    consumes = { MediaType.APPLICATION_JSON_VALUE },
+                    produces = { MediaType.APPLICATION_JSON_VALUE },
+                    beanClass = ReportsHandler.class,
+                    beanMethod = "listenHealthCheck",
+                    operation = @Operation(
+                            operationId = "Health",
+                            summary = "Verificar que el microservicio funcione",
+                            tags = { "Reports" },
+                            responses = {
+                                    @ApiResponse(
+                                            responseCode = "200", description = "Validar microservicio",
+                                            content =@Content(
+                                                    schema = @Schema(implementation = bootcamp.reto.powerup.model.reports.Health.class)
+                                            )
+                                    )
+                            }
+                    )
             )
     })
     public RouterFunction<ServerResponse> routerFunction(ReportsHandler handler) {
-        return route(GET("/api/v1/reports/{id_key}"), handler::listenGetReportById);
+        return route(GET("/api/v1/reports/{id_key}"), handler::listenGetReportById)
+                .andRoute(GET("/health"),handler::listenHealthCheck);
     }
 }
