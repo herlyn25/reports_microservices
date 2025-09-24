@@ -22,7 +22,7 @@ import java.nio.charset.StandardCharsets;
 @EnableWebFluxSecurity
 public class SecurityConfig {
 
-    @Value("${jwt.secret-key}")
+    @Value(value="${jwt.secret-key}")
     private String secret;
 
     private SecretKey secretKey;
@@ -58,9 +58,10 @@ public class SecurityConfig {
                 .authorizeExchange(ex-> ex
                         .pathMatchers(
                                 "/v3/api-docs/**",
-                                "/swagger-ui/**")
+                                "/swagger-ui/**",
+                                "/health")
                         .permitAll()
-                        .pathMatchers(HttpMethod.GET,"/api/v1/reports").hasRole("ADMIN")
+                        .pathMatchers(HttpMethod.GET,"/api/v1/reports/{id_key}").hasRole("ADMIN")
                         .anyExchange().authenticated())
                 .oauth2ResourceServer(oauth-> oauth
                         .jwt(jwt->jwt.jwtDecoder(decoder)

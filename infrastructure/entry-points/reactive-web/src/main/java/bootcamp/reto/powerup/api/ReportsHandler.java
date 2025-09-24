@@ -20,4 +20,14 @@ private  final ReportsUseCase reportsUseCase;
         return reportsUseCase.finReportById(id_key).flatMap(report->ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_JSON).bodyValue(report));
     }
+
+    public Mono<ServerResponse> listenHealthCheck(ServerRequest serverRequest) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("status",200);
+        map.put("message","healthy");
+
+        return ServerResponse.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(map);
+    }
 }

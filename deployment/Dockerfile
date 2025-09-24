@@ -6,7 +6,7 @@ WORKDIR /app
 COPY ../applications/app-service/build/libs/reportsCrediya.jar /app/reportsCrediya.jar
 COPY .env /app/.env
 # Exponer puerto
-EXPOSE 8080
+EXPOSE 8082
 
 # Punto de entrada
 ENTRYPOINT ["java","-jar","reportsCrediya.jar"]
